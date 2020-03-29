@@ -13,8 +13,20 @@ export default function List() {
 		}
 	};
 
-	console.log(list);
+	const createTasks = list => {
+		return (
+			<li
+				className="input-group-text"
+				id="inputGroup-sizing-sm"
+				key={list.key}>
+				{list}
+			</li>
+		);
+	};
 
+	let listItems = list.map(createTasks);
+
+	console.log(list);
 	return (
 		<ul className="list-group">
 			<li className="input-group-text" id="inputGroup-sizing-sm">
@@ -23,9 +35,11 @@ export default function List() {
 					className="form-control"
 					aria-label="Sizing example input"
 					aria-describedby="inputGroup-sizing-sm"
+					placeholder="What needs to be done"
 					onKeyDown={handleEnter}
 				/>
 			</li>
+			{listItems}
 		</ul>
 	);
 }
