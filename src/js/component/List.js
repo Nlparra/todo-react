@@ -13,6 +13,15 @@ export default function List() {
 		}
 	};
 
+	const handleDelete = i => {
+        let { target } = i;
+        Array.from(target.parentNode.children).forEach(item => {
+			if (item.id === target.id) {
+                target.removeChild(); 
+            };
+        }
+    };
+
 	const createTasks = list => {
 		return (
 			<li
@@ -20,6 +29,13 @@ export default function List() {
 				id="inputGroup-sizing-sm"
 				key={list.key}>
 				{list}
+				<button
+					onClick={handleDelete}
+					type="button"
+					className="close ml-auto"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</li>
 		);
 	};
