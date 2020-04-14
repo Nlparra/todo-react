@@ -18,8 +18,8 @@ export default function List() {
         Array.from(target.parentNode.children).forEach(item => {
 			if (item.id === target.id) {
                 target.removeChild(); 
-            };
-        }
+        };
+        })
     };
 
 	const createTasks = list => {
