@@ -3,7 +3,7 @@ const url = "https://assets.breatheco.de/apis/fake/todos/user/Nlparra";
 
 export default function List() {
 	const [list, setList] = useState([]);
-	console.log("joao", list);
+	// console.log("joao", list);
 
 	useEffect(() => {
 		fetch(url)
@@ -17,13 +17,27 @@ export default function List() {
 			});
 	}, []);
 
-	const handleEnter = e => {
-		console.log(e.target.value);
-
+	let handleEnter = e => {
+		// console.log("yellow", e.target.value);
 		const { key, target } = e;
+		// console.log("what", e);
 		if (key === "Enter") {
-			setList(list => [...list, target.value]);
-			// target.value = "";
+			fetch(url, {
+				method: "put",
+				header: { "Content-type": "application/json" },
+				body: JSON.stringify({
+					label: e.target.value
+				})
+			})
+				.then(() => {
+					fetch(url)
+						.then(res => res.json())
+						.then(data => {
+							console.log("put", data);
+							setList(data);
+						});
+				})
+				.catch(e => console.error(e));
 		}
 	};
 
@@ -74,7 +88,7 @@ export default function List() {
 						<li
 							className="input-group-text"
 							id="inputGroup-sizing-sm"
-							key={list.key}>
+							key={index}>
 							{e.label}
 							<button
 								onClick={handleDelete}
