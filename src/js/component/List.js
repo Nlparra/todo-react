@@ -18,16 +18,17 @@ export default function List() {
 	}, []);
 
 	let handleEnter = e => {
-		// console.log("yellow", e.target.value);
 		const { key, target } = e;
-		// console.log("what", e);
 		if (key === "Enter") {
+			let toDo = { label: e.target.value, done: false };
+			let newList = list;
+			newList.push(toDo);
+			console.log(newList);
+
 			fetch(url, {
 				method: "put",
 				header: { "Content-type": "application/json" },
-				body: JSON.stringify({
-					label: e.target.value
-				})
+				body: JSON.stringify({})
 			})
 				.then(() => {
 					fetch(url)
